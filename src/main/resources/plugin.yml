@@ -1,0 +1,4 @@
+name: RyLib
+version: '${project.version}'
+main: com.rappytv.rylib.RyLib
+api-version: '1.20'

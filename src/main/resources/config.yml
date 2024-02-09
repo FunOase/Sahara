@@ -1,0 +1,8 @@
+msg:
+  prefix: 'Prefix >> '
+  noPermission: '<prefix> &cDazu hast du keine Berechtigung!'
+  enterPlayerName: '<prefix> &cDu musst einen Spielernamen angeben!'
+  playerNotFound: '<prefix> &cDer Spieler wurde nicht gefunden!'
+  onlyPlayer: '<prefix> &cDie Konsole darf diesen Befehl nicht ausführen!'
+  disabled: '<prefix> &cDiese Funktion ist deaktiviert!'
+  usage: '<prefix> &cSo benutzt du den Befehl: &b/<usage>&c!'

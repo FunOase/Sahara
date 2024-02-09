@@ -1,5 +1,5 @@
 msg:
-  prefix: 'Prefix >> '
+  prefix: '&5&lRyLib &8»&7'
   noPermission: '<prefix> &cDazu hast du keine Berechtigung!'
   enterPlayerName: '<prefix> &cDu musst einen Spielernamen angeben!'
   playerNotFound: '<prefix> &cDer Spieler wurde nicht gefunden!'

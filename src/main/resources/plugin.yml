@@ -2,3 +2,11 @@ name: RyLib
 version: '${project.version}'
 main: com.rappytv.rylib.RyLib
 api-version: '1.20'
+
+commands:
+  rylib:
+    permission: rylib.reload
+
+permissions:
+  rylib.reload:
+    default: op

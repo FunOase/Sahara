@@ -6,3 +6,6 @@ msg:
   onlyPlayer: '<prefix> &cDie Konsole darf diesen Befehl nicht ausführen!'
   disabled: '<prefix> &cDiese Funktion ist deaktiviert!'
   usage: '<prefix> &cSo benutzt du den Befehl: &b/<usage>&c!'
+
+private:
+  reload: '<prefix> &aRyLib wurde neugeladen!'

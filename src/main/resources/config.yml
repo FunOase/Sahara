@@ -9,6 +9,4 @@ msg:
 
 private:
   reload: '<prefix> &aRyLib wurde neugeladen!'
-  update: |-
-    <prefix> Für folgende Plugins sind neue Updates verfügbar:
-    <prefix> &b<plugins>
+  update: '<prefix> Für folgende Plugins sind neue Updates verfügbar: &b<plugins>'

@@ -11,3 +11,5 @@ commands:
 permissions:
   rylib.reload:
     default: op
+  rylib.updates:
+    default: op

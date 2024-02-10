@@ -13,7 +13,7 @@ import java.net.http.HttpResponse;
 import java.util.HashSet;
 import java.util.Set;
 
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({"rawtypes", "unused"})
 public class UpdateChecker<T extends JavaPlugin> {
 
     private static final Set<UpdateChecker> checkers = new HashSet<>();

@@ -9,9 +9,9 @@ msg:
   disabled: '<prefix> &cDiese Funktion ist deaktiviert!'
   usage: '<prefix> &cSo benutzt du den Befehl: &b/<usage>&c!'
 
-private:
-  reload: '<prefix> &aRyLib wurde neugeladen!'
-  update: |-
-    <prefix> Für folgende Plugins sind neue Updates verfügbar:
-    <plugins>
-  updatedPlugin: '<prefix> &8- &b<name> &8(&bv<current> &8-> &bv<latest>&8)'
+  private:
+    reload: '<prefix> &aRyLib wurde neugeladen!'
+    update: |-
+      <prefix> Für folgende Plugins sind neue Updates verfügbar:
+      <plugins>
+    updatedPlugin: '<prefix> &8- &b<name> &8(&bv<current> &8-> &bv<latest>&8)'

@@ -14,7 +14,7 @@ public class I18n {
     }
 
     public static String prefix() {
-        return RyLib.get().i18n().translate("msg.prefix");
+        return RyLib.get().i18n().translate("prefix");
     }
 
     public String translate(String key) {
@@ -22,7 +22,7 @@ public class I18n {
     }
 
     public String translate(String key, boolean color) {
-        String translation = config.getString(key);
+        String translation = config.getString("i18n." + key);
         if(translation == null) return key;
         if(translation.contains("<prefix>"))
             translation = translation.replace("<prefix>", prefix());

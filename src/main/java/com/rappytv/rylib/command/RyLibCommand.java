@@ -15,7 +15,7 @@ public class RyLibCommand extends Command<RyLib> {
     @Override
     public void execute(CommandSender sender, String prefix, String[] args) {
         if(!sender.hasPermission("rylib.reload")) {
-            sender.sendMessage(plugin.i18n().translate("msg.noPermission"));
+            sender.sendMessage(plugin.i18n().translate("noPermission"));
             return;
         }
         plugin.reloadConfig();

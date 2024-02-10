@@ -32,9 +32,6 @@ public final class RyLib extends JavaPlugin {
         pm.registerEvents(new PlayerListener(this), this);
     }
 
-    @Override
-    public void onDisable() {}
-
     public I18n i18n() {
         return i18n;
     }

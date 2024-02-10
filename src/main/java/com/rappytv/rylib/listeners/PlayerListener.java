@@ -26,7 +26,7 @@ public class PlayerListener implements Listener {
         List<UpdateChecker> availableCheckers = new ArrayList<>();
 
         for(UpdateChecker checker : UpdateChecker.getCheckers()) {
-            if(checker.isUpdateAvailable())
+            if(checker.isEnabled() && checker.isUpdateAvailable())
                 availableCheckers.add(checker);
         }
         String plugins = String.join(

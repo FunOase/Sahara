@@ -51,7 +51,6 @@ public class UpdateChecker<T extends JavaPlugin> {
     }
 
     public boolean isUpdateAvailable() {
-        if(!isEnabled()) return false;
         if(artifactUrl == null || latestVersion == null) return false;
         try {
             int current = Integer.parseInt(version.replace(".", ""));

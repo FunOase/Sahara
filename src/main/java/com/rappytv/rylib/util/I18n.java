@@ -1,5 +1,6 @@
 package com.rappytv.rylib.util;
 
+import com.rappytv.rylib.RyLib;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,8 +13,8 @@ public class I18n {
         this.config = plugin.getConfig();
     }
 
-    public String prefix() {
-        return translate("msg.prefix");
+    public static String prefix() {
+        return RyLib.get().i18n().translate("msg.prefix");
     }
 
     public String translate(String key) {

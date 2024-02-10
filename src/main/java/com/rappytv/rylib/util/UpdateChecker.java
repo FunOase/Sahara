@@ -45,7 +45,13 @@ public class UpdateChecker<T extends JavaPlugin> {
         return latestVersion;
     }
 
+    public boolean isEnabled() {
+        return plugin.getConfig().isBoolean("checkForUpdates")
+                && plugin.getConfig().getBoolean("checkForUpdates");
+    }
+
     public boolean isUpdateAvailable() {
+        if(!isEnabled()) return false;
         if(artifactUrl == null || latestVersion == null) return false;
         try {
             int current = Integer.parseInt(version.replace(".", ""));

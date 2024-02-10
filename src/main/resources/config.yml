@@ -1,3 +1,5 @@
+checkForUpdates: true
+
 msg:
   prefix: '&5&lRyLib &8»&7'
   noPermission: '<prefix> &cDazu hast du keine Berechtigung!'

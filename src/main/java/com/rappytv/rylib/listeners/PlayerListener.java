@@ -23,20 +23,33 @@ public class PlayerListener implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         if(!player.hasPermission("rylib.updates")) return;
-        List<String> plugins = new ArrayList<>();
+        List<UpdateChecker> availableCheckers = new ArrayList<>();
 
         for(UpdateChecker checker : UpdateChecker.getCheckers()) {
             if(checker.isUpdateAvailable())
-                plugins.add(checker.getPluginName());
+                availableCheckers.add(checker);
         }
+        String plugins = String.join(
+                ", ",
+                availableCheckers
+                        .stream()
+                        .map((pl) ->
+                                String.format(
+                                        "%s (v%s -> v%s)",
+                                        pl.getPluginName(),
+                                        pl.getVersion(),
+                                        pl.getLatestVersion()
+                                )
+                        ).toList()
+        );
 
-        if(!plugins.isEmpty()) {
+        if(!availableCheckers.isEmpty()) {
             player.sendMessage(
                     plugin.i18n()
                             .translate("private.update")
                             .replace(
-                                    "<plugin>",
-                                    String.join(", ", plugins)
+                                    "<plugins>",
+                                    plugins
                             )
             );
         }

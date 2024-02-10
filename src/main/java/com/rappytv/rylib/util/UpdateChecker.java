@@ -37,11 +37,19 @@ public class UpdateChecker<T extends JavaPlugin> {
         return plugin.getName();
     }
 
+    public String getVersion() {
+        return version;
+    }
+
+    public String getLatestVersion() {
+        return latestVersion;
+    }
+
     public boolean isUpdateAvailable() {
         if(artifactUrl == null || latestVersion == null) return false;
         try {
-            int current = Integer.parseInt(version);
-            int latest = Integer.parseInt(latestVersion);
+            int current = Integer.parseInt(version.replace(".", ""));
+            int latest = Integer.parseInt(latestVersion.replace(".", ""));
 
             return latest > current;
         } catch (NumberFormatException ignored) {
@@ -56,7 +64,7 @@ public class UpdateChecker<T extends JavaPlugin> {
     public UpdateChecker<T> setArtifactFormat(String domain, String job, String pkg, String... folders) {
         StringBuilder folderString = new StringBuilder();
         for (String folder : folders) {
-            folderString.append(folder).append("/job");
+            folderString.append(folder.replace(" ", "%20")).append("/job");
         }
 
         artifactUrl = String.format(
@@ -67,11 +75,11 @@ public class UpdateChecker<T extends JavaPlugin> {
                 pkg,
                 getPluginName()
         );
-        getLatestVersion();
+        setLatestVersion();
         return this;
     }
 
-    private void getLatestVersion() {
+    private void setLatestVersion() {
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .GET()
@@ -83,7 +91,7 @@ public class UpdateChecker<T extends JavaPlugin> {
                 JsonObject body = JsonParser.parseString(response.body()).getAsJsonObject();
                 JsonObject artifact = body.getAsJsonArray("artifacts").get(0).getAsJsonObject();
                 String path = artifact.get("displayPath").getAsString();
-                this.latestVersion = path.substring(path.lastIndexOf("-"), path.lastIndexOf(".jar"));
+                this.latestVersion = path.substring(path.lastIndexOf("-") + 1, path.lastIndexOf(".jar"));
             });
         } catch (JsonParseException | URISyntaxException exception) {
             plugin.getLogger().severe("Invalid API response for " + getPluginName() + " update checker!");

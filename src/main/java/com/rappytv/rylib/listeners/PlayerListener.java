@@ -30,16 +30,14 @@ public class PlayerListener implements Listener {
                 availableCheckers.add(checker);
         }
         String plugins = String.join(
-                ", ",
+                "\n",
                 availableCheckers
                         .stream()
                         .map((pl) ->
-                                String.format(
-                                        "%s (v%s -> v%s)",
-                                        pl.getPluginName(),
-                                        pl.getVersion(),
-                                        pl.getLatestVersion()
-                                )
+                                plugin.i18n().translate("private.updatedPlugin")
+                                        .replace("<name>", pl.getPluginName())
+                                        .replace("<current>", pl.getVersion())
+                                        .replace("<latest>", pl.getLatestVersion())
                         ).toList()
         );
 

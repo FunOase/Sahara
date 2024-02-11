@@ -1,11 +1,12 @@
 package com.rappytv.rylib.util;
 
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("unused")
 public class Colors {
 
     public static final Pattern hex = Pattern.compile("#[a-fA-F0-9]{6}");
@@ -26,8 +27,8 @@ public class Colors {
         return ChatColor.translateAlternateColorCodes('&', message);
     }
 
-    public static String translatePlayerCodes(Player player, String message, String basePermission) {
-        if(player.hasPermission(basePermission + ".hex")) {
+    public static String translatePlayerCodes(CommandSender sender, String message, String basePermission) {
+        if(sender.hasPermission(basePermission + ".hex")) {
             Matcher match = hex.matcher(message);
             while(match.find()) {
                 String color = message.substring(match.start(), match.end());
@@ -35,22 +36,22 @@ public class Colors {
                 match = hex.matcher(message);
             }
         }
-        if(player.hasPermission(basePermission + ".colors")) {
+        if(sender.hasPermission(basePermission + ".colors")) {
             message = color.matcher(message).replaceAll("§$1");
         }
-        if(player.hasPermission(basePermission + ".bold")) {
+        if(sender.hasPermission(basePermission + ".bold")) {
             message = bold.matcher(message).replaceAll("§$1");
         }
-        if(player.hasPermission(basePermission + ".italic")) {
+        if(sender.hasPermission(basePermission + ".italic")) {
             message = italic.matcher(message).replaceAll("§$1");
         }
-        if(player.hasPermission(basePermission + ".underline")) {
+        if(sender.hasPermission(basePermission + ".underline")) {
             message = underline.matcher(message).replaceAll("§$1");
         }
-        if(player.hasPermission(basePermission + ".strikethrough")) {
+        if(sender.hasPermission(basePermission + ".strikethrough")) {
             message = strikethrough.matcher(message).replaceAll("§$1");
         }
-        if(player.hasPermission(basePermission + ".magic")) {
+        if(sender.hasPermission(basePermission + ".magic")) {
             message = magic.matcher(message).replaceAll("§$1");
         }
         return message;

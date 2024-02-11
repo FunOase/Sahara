@@ -16,16 +16,21 @@ public class I18n {
         return RyLib.get().i18n().translate("prefix");
     }
 
-    public String translate(String key) {
-        return translate(key, true);
-    }
-
-    public String translate(String key, boolean color) {
+    public String translate(String key, Argument... args) {
         String translation = config.getString("i18n." + key);
         if(translation == null) return key;
         if(translation.contains("<prefix>"))
             translation = translation.replace("<prefix>", prefix());
-        if(color) return Colors.translateCodes(translation);
-        return translation;
+        for(Argument argument : args)
+            translation = argument.apply(translation);
+
+        return Colors.translateCodes(translation);
+    }
+
+    public record Argument(CharSequence argument, CharSequence replacement) {
+
+        public String apply(String text) {
+            return text.replace("<" + argument + ">", replacement);
+        }
     }
 }

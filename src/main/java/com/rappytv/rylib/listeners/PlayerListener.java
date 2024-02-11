@@ -1,6 +1,7 @@
 package com.rappytv.rylib.listeners;
 
 import com.rappytv.rylib.RyLib;
+import com.rappytv.rylib.util.I18n;
 import com.rappytv.rylib.util.UpdateChecker;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -34,21 +35,21 @@ public class PlayerListener implements Listener {
                 availableCheckers
                         .stream()
                         .map((pl) ->
-                                plugin.i18n().translate("private.updatedPlugin")
-                                        .replace("<name>", pl.getPluginName())
-                                        .replace("<current>", pl.getVersion())
-                                        .replace("<latest>", pl.getLatestVersion())
+                                plugin.i18n().translate(
+                                        "private.updatedPlugin",
+                                        new I18n.Argument("name", pl.getPluginName()),
+                                        new I18n.Argument("current", pl.getVersion()),
+                                        new I18n.Argument("latest", pl.getLatestVersion())
+                                )
                         ).toList()
         );
 
         if(!availableCheckers.isEmpty()) {
             player.sendMessage(
-                    plugin.i18n()
-                            .translate("private.update")
-                            .replace(
-                                    "<plugins>",
-                                    plugins
-                            )
+                    plugin.i18n().translate(
+                            "private.update",
+                            new I18n.Argument("plugins", plugins)
+                    )
             );
         }
     }

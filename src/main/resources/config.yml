@@ -1,6 +1,6 @@
 checkForUpdates: true
 
-msg:
+i18n:
   prefix: '&5&lRyLib &8»&7'
   noPermission: '<prefix> &cDazu hast du keine Berechtigung!'
   enterPlayerName: '<prefix> &cDu musst einen Spielernamen angeben!'

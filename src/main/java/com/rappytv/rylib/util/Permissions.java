@@ -3,9 +3,24 @@ package com.rappytv.rylib.util;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 
+@SuppressWarnings("unused")
 public class Permissions {
 
-    public int getPermissionInt(Player player, String permission, int fallback, IntegerStrategy strategy) {
+    public static <T extends Enum<T>> T getEnumValue(Player player, String permission, T fallback, Class<T> enumm) {
+        for(PermissionAttachmentInfo permissionInfo : player.getEffectivePermissions()) {
+            String permissionString = permissionInfo.getPermission();
+            if(permissionString.startsWith(permission + ".")) {
+                permissionString = permissionString.replace(permission + ".", "");
+                try {
+                    return Enum.valueOf(enumm, permissionString.toUpperCase());
+                } catch (IllegalArgumentException ignored) {}
+            }
+        }
+
+        return fallback;
+    }
+
+    public static int getInt(Player player, String permission, int fallback, IntegerStrategy strategy) {
         for(PermissionAttachmentInfo permissionInfo : player.getEffectivePermissions()) {
             String permissionString = permissionInfo.getPermission();
             if(permissionString.startsWith(permission + ".")) {

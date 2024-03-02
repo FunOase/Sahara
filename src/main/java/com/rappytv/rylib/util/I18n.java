@@ -1,16 +1,26 @@
 package com.rappytv.rylib.util;
 
 import com.rappytv.rylib.RyLib;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @SuppressWarnings("unused")
 public class I18n {
 
-    private final FileConfiguration config;
+    private static final Set<I18n> instances = new HashSet<>();
+    private final JavaPlugin plugin;
 
     public <T extends JavaPlugin> I18n(T plugin) {
-        this.config = plugin.getConfig();
+        this.plugin = plugin;
+        instances.add(this);
+    }
+
+    public static void reload() {
+        for(I18n instance : instances) {
+            instance.plugin.reloadConfig();
+        }
     }
 
     public static String prefix() {
@@ -18,7 +28,7 @@ public class I18n {
     }
 
     public String translate(String key, Argument... args) {
-        String translation = config.getString("i18n." + key);
+        String translation = plugin.getConfig().getString("i18n." + key);
         if(translation == null) return key;
         if(translation.contains("<prefix>"))
             translation = translation.replace("<prefix>", prefix());

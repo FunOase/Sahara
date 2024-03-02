@@ -2,6 +2,7 @@ package com.rappytv.rylib.command;
 
 import com.rappytv.rylib.RyLib;
 import com.rappytv.rylib.util.Command;
+import com.rappytv.rylib.util.I18n;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class RyLibCommand extends Command<RyLib> {
             return;
         }
         plugin.reloadConfig();
+        I18n.reload();
         sender.sendMessage(plugin.i18n().translate("private.reload"));
     }
 

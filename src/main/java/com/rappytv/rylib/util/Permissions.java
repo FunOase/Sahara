@@ -3,6 +3,9 @@ package com.rappytv.rylib.util;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SuppressWarnings("unused")
 public class Permissions {
 
@@ -18,6 +21,19 @@ public class Permissions {
         }
 
         return fallback;
+    }
+
+    public static List<String> getValues(Player player, String permission) {
+        List<String> values = new ArrayList<>();
+        for(PermissionAttachmentInfo permissionInfo : player.getEffectivePermissions()) {
+            String permissionString = permissionInfo.getPermission();
+            if(permissionString.startsWith(permission + ".")) {
+                permissionString = permissionString.replace(permission + ".", "");
+                if(!permissionString.isBlank()) values.add(permission);
+            }
+        }
+
+        return values;
     }
 
     public static int getInt(Player player, String permission, int fallback, IntegerStrategy strategy) {

@@ -36,6 +36,13 @@ public class Permissions {
         return values;
     }
 
+    public static boolean hasExactPermission(Player player, String permission) {
+        for(PermissionAttachmentInfo permissionInfo : player.getEffectivePermissions()) {
+            if(permissionInfo.getPermission().equalsIgnoreCase(permission)) return true;
+        }
+        return false;
+    }
+
     public static int getInt(Player player, String permission, int fallback, IntegerStrategy strategy) {
         for(PermissionAttachmentInfo permissionInfo : player.getEffectivePermissions()) {
             String permissionString = permissionInfo.getPermission();

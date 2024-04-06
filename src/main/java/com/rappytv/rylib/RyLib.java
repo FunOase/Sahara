@@ -18,7 +18,10 @@ public final class RyLib extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         i18n = new I18n(this);
-        new UpdateChecker<>(this).setArtifactFormat(
+        new UpdateChecker<>(
+                this,
+                () -> getConfig().getBoolean("checkForUpdates")
+        ).setArtifactFormat(
                         "ci.rappytv.com",
                         "RY-Lib",
                         "com.rappytv",

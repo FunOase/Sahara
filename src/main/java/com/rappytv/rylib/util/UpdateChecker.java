@@ -5,6 +5,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import javax.security.auth.callback.Callback;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
@@ -12,6 +13,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 @SuppressWarnings({"rawtypes", "unused"})
 public class UpdateChecker<T extends JavaPlugin> {
@@ -24,12 +27,14 @@ public class UpdateChecker<T extends JavaPlugin> {
 
     private final T plugin;
     private final String version;
+    private final Supplier<Boolean> enabled;
     private String latestVersion = null;
     private String artifactUrl = null;
 
-    public UpdateChecker(T plugin) {
+    public UpdateChecker(T plugin, Supplier<Boolean> enabled) {
         this.plugin = plugin;
         this.version = plugin.getDescription().getVersion();
+        this.enabled = enabled;
         checkers.add(this);
     }
 
@@ -46,8 +51,7 @@ public class UpdateChecker<T extends JavaPlugin> {
     }
 
     public boolean isEnabled() {
-        return plugin.getConfig().isBoolean("checkForUpdates")
-                && plugin.getConfig().getBoolean("checkForUpdates");
+        return enabled.get();
     }
 
     public boolean isUpdateAvailable() {

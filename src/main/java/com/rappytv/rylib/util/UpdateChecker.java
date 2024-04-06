@@ -5,7 +5,6 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import javax.security.auth.callback.Callback;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
@@ -13,7 +12,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 @SuppressWarnings({"rawtypes", "unused"})

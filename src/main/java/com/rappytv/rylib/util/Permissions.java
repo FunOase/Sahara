@@ -29,7 +29,7 @@ public class Permissions {
             String permissionString = permissionInfo.getPermission();
             if(permissionString.startsWith(permission + ".")) {
                 permissionString = permissionString.replace(permission + ".", "");
-                if(!permissionString.isBlank()) values.add(permission);
+                if(!permissionString.isBlank()) values.add(permissionString);
             }
         }
 

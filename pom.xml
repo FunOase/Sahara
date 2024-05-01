@@ -6,7 +6,7 @@
 
   <groupId>com.rappytv</groupId>
   <artifactId>RyLib</artifactId>
-  <version>1.0.51</version>
+  <version>1.0.52</version>
   <packaging>jar</packaging>
 
   <name>RyLib</name>

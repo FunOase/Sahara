@@ -1,15 +1,13 @@
-name: RyLib
+name: Sahara
 version: '${project.version}'
-main: com.rappytv.rylib.RyLib
+main: net.funoase.sahara.Sahara
 api-version: '1.20'
 author: RappyTV
 
 commands:
   rylib:
-    permission: rylib.reload
+    permission: sahara.reload
 
 permissions:
-  rylib.reload:
-    default: op
-  rylib.updates:
+  sahara.reload:
     default: op

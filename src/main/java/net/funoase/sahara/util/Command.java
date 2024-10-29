@@ -1,4 +1,4 @@
-package com.rappytv.rylib.util;
+package net.funoase.sahara.util;
 
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,9 +14,11 @@ public abstract class Command<T extends JavaPlugin> implements CommandExecutor, 
 
     public static final List<String> players = new ArrayList<>(Collections.singletonList("--players--"));
     protected final T plugin;
+    private final String name;
+    private boolean registered = false;
 
     public Command(String name, T plugin) {
-        plugin.getCommand(name).setExecutor(this);
+        this.name = name;
         this.plugin = plugin;
     }
 
@@ -46,5 +48,13 @@ public abstract class Command<T extends JavaPlugin> implements CommandExecutor, 
         }
 
         return finalList;
+    }
+
+    public void register() {
+        if(this.registered) {
+            throw new IllegalStateException("Command already registered");
+        }
+        plugin.getCommand(this.name).setExecutor(this);
+        this.registered = true;
     }
 }

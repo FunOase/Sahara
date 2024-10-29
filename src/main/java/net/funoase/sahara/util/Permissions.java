@@ -1,4 +1,4 @@
-package com.rappytv.rylib.util;
+package net.funoase.sahara.util;
 
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachmentInfo;

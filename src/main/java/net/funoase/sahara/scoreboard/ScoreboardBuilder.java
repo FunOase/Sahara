@@ -1,4 +1,4 @@
-package com.rappytv.rylib.scoreboard;
+package net.funoase.sahara.scoreboard;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

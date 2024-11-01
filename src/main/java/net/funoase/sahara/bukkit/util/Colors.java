@@ -1,4 +1,4 @@
-package net.funoase.sahara.util;
+package net.funoase.sahara.bukkit.util;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;

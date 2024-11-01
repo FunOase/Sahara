@@ -1,4 +1,4 @@
-package net.funoase.sahara.scoreboard;
+package net.funoase.sahara.bukkit.scoreboard;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

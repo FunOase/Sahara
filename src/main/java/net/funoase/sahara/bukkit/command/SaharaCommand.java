@@ -1,7 +1,7 @@
-package net.funoase.sahara.command;
+package net.funoase.sahara.bukkit.command;
 
-import net.funoase.sahara.Sahara;
-import net.funoase.sahara.util.Command;
+import net.funoase.sahara.bukkit.Sahara;
+import net.funoase.sahara.bukkit.util.Command;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;

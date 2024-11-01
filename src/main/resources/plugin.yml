@@ -1,6 +1,6 @@
 name: Sahara
 version: '${project.version}'
-main: net.funoase.sahara.Sahara
+main: net.funoase.sahara.bukkit.Sahara
 api-version: '1.20'
 author: RappyTV
 

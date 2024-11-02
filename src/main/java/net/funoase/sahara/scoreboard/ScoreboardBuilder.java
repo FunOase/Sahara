@@ -1,5 +1,6 @@
 package net.funoase.sahara.scoreboard;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -12,7 +13,7 @@ public abstract class ScoreboardBuilder {
     protected final Objective objective;
     protected final Player player;
 
-    public ScoreboardBuilder(Player player, String displayName) {
+    public ScoreboardBuilder(Player player, Component displayName) {
         this.player = player;
 
         if(player.getScoreboard().equals(Bukkit.getScoreboardManager().getMainScoreboard()))
@@ -32,14 +33,14 @@ public abstract class ScoreboardBuilder {
 
     public abstract void createScoreboard();
 
-    public void setDisplayName(String displayName) {
-        this.objective.setDisplayName(displayName);
+    public void setDisplayName(Component displayName) {
+        this.objective.displayName(displayName);
     }
 
-    public void setScore(String content, int score) {
+    public void setScore(Component content, int score) {
         Team team = getTeamByScore(score);
 
-        team.setPrefix(content);
+        team.prefix(content);
         showScore(score);
     }
 
@@ -47,6 +48,7 @@ public abstract class ScoreboardBuilder {
         hideScore(score);
     }
 
+    @SuppressWarnings("deprecation")
     private String getEntry(int score) {
         return ChatColor.values()[score].toString();
     }

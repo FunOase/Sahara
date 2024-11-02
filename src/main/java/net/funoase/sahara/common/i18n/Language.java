@@ -24,7 +24,6 @@ public class Language {
     public Language(I18nManager manager, String code) {
         this.manager = manager;
         this.code = code;
-        loadTranslations();
     }
 
     public void addTranslationFile(File file) {

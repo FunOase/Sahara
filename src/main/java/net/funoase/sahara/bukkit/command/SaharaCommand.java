@@ -19,6 +19,7 @@ public class SaharaCommand extends Command<Sahara> {
             return;
         }
         plugin.reloadConfig();
+        plugin.getI18nManager().loadLanguages();
         sender.sendMessage("sahara.commands.reload.success");
     }
 

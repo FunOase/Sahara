@@ -3,7 +3,13 @@ package net.funoase.sahara.common.i18n;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.UUID;
+
 public interface Internationalization<P> {
+
+    String getLanguage(UUID player);
+
+    void setLanguage(UUID player, String code);
 
     /**
      * Gets the raw translation. Returns the key if no translation is found.

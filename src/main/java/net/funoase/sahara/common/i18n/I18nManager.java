@@ -38,6 +38,7 @@ public class I18nManager {
                     languages.put(language.getCode(), language);
                 }
                 language.addTranslationFile(file);
+                language.reloadTranslations();
             }
         }
         logger.info("Loaded " + languages.size() + " languages.");

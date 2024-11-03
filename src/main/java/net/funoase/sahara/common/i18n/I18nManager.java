@@ -24,6 +24,7 @@ public class I18nManager {
         final File directory = new File(plugin.getDataFolder(), "i18n");
         for (final String language : languages) {
             if (!new File(directory, String.format("%s.json", language)).exists()) {
+                if(plugin.getResource(String.format("i18n/%s.json", language)) == null) continue;
                 plugin.saveResource(String.format("i18n/%s.json", language), false);
             }
         }
@@ -52,7 +53,7 @@ public class I18nManager {
                 language.reloadTranslations();
             }
         }
-        logger.info("Loaded " + languages.size() + " languages.");
+        logger.info(languages.size() + " languages are available.");
     }
 
     public Logger getLogger() {

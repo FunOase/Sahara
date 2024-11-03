@@ -7,8 +7,8 @@
             }
         },
         "errors": {
-            "missing_permissions": "<red>You do not have permission to use this command.",
-            "client_only": "<red>This command can only be used on the client-side."
+            "missing_permissions": "<red>You do not have permission to use this command!",
+            "client_only": "<red>This command can only be used on the client-side!"
         }
     }
 }

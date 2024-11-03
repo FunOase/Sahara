@@ -1,0 +1,13 @@
+{
+    "sahara": {
+        "prefix": "<gold><bold>Sahara</bold></gold> <dark_gray>»</dark_gray>",
+        "commands": {
+            "reload": {
+                "success": "<green>Sprachen neu geladen!"
+            }
+        },
+        "errors": {
+            "noPermission": "<red>Du hast keine Berechtigung, diesen Befehl zu benutzen!"
+        }
+    }
+}

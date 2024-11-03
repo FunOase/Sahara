@@ -1,5 +1,4 @@
 name: Publish
-# OR, publish per each commit
 on:
   push:
     branches: [ master ]
@@ -15,6 +14,13 @@ jobs:
         with:
           java-version: 21
           distribution: 'corretto'
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: |

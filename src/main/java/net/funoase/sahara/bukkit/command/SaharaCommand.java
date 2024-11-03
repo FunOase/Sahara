@@ -15,12 +15,12 @@ public class SaharaCommand extends Command<Sahara> {
     @Override
     public void execute(CommandSender sender, String prefix, String[] args) {
         if(!sender.hasPermission("sahara.reload")) {
-            sender.sendMessage("sahara.errors.noPermission");
+            sender.sendMessage(deserializeTranslatable(sender, "sahara.errors.noPermission"));
             return;
         }
         plugin.reloadConfig();
         plugin.getI18nManager().loadLanguages();
-        sender.sendMessage("sahara.commands.reload.success");
+        sender.sendMessage(deserializeTranslatable(sender, "sahara.commands.reload.success"));
     }
 
     @Override

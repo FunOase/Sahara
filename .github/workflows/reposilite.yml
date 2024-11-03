@@ -14,7 +14,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 21
-          distribution: 'coretto'
+          distribution: 'corretto'
       - uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: |

@@ -1,28 +1,39 @@
 package net.funoase.sahara.common.i18n;
 
+import net.funoase.sahara.bukkit.Sahara;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import java.io.File;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class I18nManager {
 
-    public static final String fallbackCode = "en_us";
+    public static final Locale fallback = Locale.of("en_US");
     private final Logger logger;
 
     private final Set<File> sourceDirectories = new HashSet<>();
-    private final Map<String, Language> languages = new HashMap<>();
+    private final Map<Locale, Language> languages = new HashMap<>();
 
     public I18nManager(Logger logger) {
         this.logger = logger;
-        loadLanguages();
     }
 
-    public void loadTranslations(File directory) {
+    public void saveTranslations(JavaPlugin plugin) {
+        final List<String> languages = Sahara.get().getConfig().getStringList("languages");
+        final File directory = new File(plugin.getDataFolder(), "i18n");
+        for (final String language : languages) {
+            if (!new File(directory, String.format("%s.json", language)).exists()) {
+                plugin.saveResource(String.format("i18n/%s.json", language), false);
+            }
+        }
+        addSource(directory);
+    }
+
+    public void addSource(File directory) {
         if(!directory.exists() || !directory.isDirectory()) throw new IllegalArgumentException("Invalid directory: " + directory);
         sourceDirectories.add(directory);
+        loadLanguages();
     }
 
     public void loadLanguages() {
@@ -31,11 +42,11 @@ public class I18nManager {
             if (files == null) continue;
             for (File file : files) {
                 if (!file.getName().endsWith(".json")) continue;
-                String code = file.getName().replace(".json", "");
-                Language language = languages.get(code);
+                Locale locale = Locale.of(file.getName().replace(".json", ""));
+                Language language = languages.get(locale);
                 if(language == null) {
-                    language = new Language(this, code);
-                    languages.put(language.getCode(), language);
+                    language = new Language(this, locale);
+                    languages.put(locale, language);
                 }
                 language.addTranslationFile(file);
                 language.reloadTranslations();
@@ -44,15 +55,19 @@ public class I18nManager {
         logger.info("Loaded " + languages.size() + " languages.");
     }
 
-    public Language getLanguage(String code) {
-        return languages.getOrDefault(code, getFallbackLanguage());
+    public Logger getLogger() {
+        return logger;
     }
 
     public Language getFallbackLanguage() {
-        return languages.get(fallbackCode);
+        return languages.get(fallback);
     }
 
-    public Logger getLogger() {
-        return logger;
+    public Language getLanguage(String code) {
+        return languages.getOrDefault(Locale.of(code.toLowerCase()), getFallbackLanguage());
+    }
+
+    public Language getLanguage(Locale locale) {
+        return getLanguage(locale.toString().toLowerCase());
     }
 }

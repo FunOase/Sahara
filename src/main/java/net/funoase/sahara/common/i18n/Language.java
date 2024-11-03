@@ -10,20 +10,30 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.nio.file.Path;
 import java.util.*;
 
 public class Language {
 
     private final static Gson gson = new Gson();
     private final I18nManager manager;
-    private final String code;
+    private final Locale locale;
+    private final boolean fallback;
     private final Set<File> translationFiles = new HashSet<>();
-    private final Map<String, String> translations = new HashMap<>();
+    protected final Map<String, String> translations = new HashMap<>();
 
-    public Language(I18nManager manager, String code) {
+    public Language(I18nManager manager, Locale locale) {
         this.manager = manager;
-        this.code = code;
+        this.locale = locale;
+        this.fallback = locale.equals(I18nManager.fallback);
+    }
+
+    @NotNull
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public boolean isFallback() {
+        return fallback;
     }
 
     public void addTranslationFile(File file) {
@@ -34,9 +44,10 @@ public class Language {
         for (File file : translationFiles) {
             JsonElement element;
             try {
-                element = gson.fromJson(new FileReader(Path.of(file.getAbsolutePath(), code + ".json").toString()), JsonElement.class);
+                element = gson.fromJson(new FileReader(file.toPath().toString()), JsonElement.class);
             } catch (FileNotFoundException | JsonSyntaxException e) {
-                this.manager.getLogger().throwing(getClass().getName(), "loadTranslations", e);
+                this.manager.getLogger().severe("Failed to load language file: " + file.getPath());
+                e.printStackTrace();
                 return;
             }
 
@@ -72,14 +83,9 @@ public class Language {
     }
 
     @NotNull
-    public String getCode() {
-        return code;
-    }
-
-    @NotNull
     public String getRawTranslation(@NotNull String key) {
         String translation = this.translations.get(key);
-        if(translation == null) translation = manager.getFallbackLanguage().getTranslation(key);
+        if(translation == null && !fallback) translation = manager.getFallbackLanguage().getTranslation(key);
         return translation != null ? translation : key;
     }
 
@@ -99,6 +105,14 @@ public class Language {
     }
 
     public boolean has(@NotNull String key) {
-        return this.translations.containsKey(key) || manager.getFallbackLanguage().getTranslation(key) != null;
+        return this.translations.containsKey(key) || !fallback && manager.getFallbackLanguage().getTranslation(key) != null;
+    }
+
+    @Override
+    public String toString() {
+        return "Language{" +
+                "fallback=" + fallback +
+                ", locale=" + locale +
+                '}';
     }
 }

@@ -1,6 +1,4 @@
-database:
-  host: localhost
-  port: 3306
-  database: sahara
-  username: sahara
-  password: sahara
+# This setting will only be applied after a restart
+languages:
+  - en_us
+  - de_de

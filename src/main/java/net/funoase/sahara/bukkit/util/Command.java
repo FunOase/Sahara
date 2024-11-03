@@ -1,8 +1,14 @@
-package net.funoase.sahara.util;
+package net.funoase.sahara.bukkit.util;
 
+import net.funoase.sahara.bukkit.Sahara;
+import net.funoase.sahara.common.i18n.I18nManager;
+import net.funoase.sahara.common.i18n.Language;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -14,6 +20,7 @@ public abstract class Command<T extends JavaPlugin> implements CommandExecutor, 
 
     public static final List<String> players = new ArrayList<>(Collections.singletonList("--players--"));
     protected final T plugin;
+    protected MiniMessage minimessage = MiniMessage.miniMessage();
     private final String name;
     private boolean registered = false;
 
@@ -48,6 +55,13 @@ public abstract class Command<T extends JavaPlugin> implements CommandExecutor, 
         }
 
         return finalList;
+    }
+
+    public Component deserializeTranslatable(CommandSender sender, String key, Object... args) {
+        Language language = Sahara.get().getI18nManager().getLanguage(
+                sender instanceof Player player ? player.locale() : I18nManager.fallback
+        );
+        return minimessage.deserialize(language.translate("sahara.prefix") + " " + language.translate(key, args));
     }
 
     public void register() {

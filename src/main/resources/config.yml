@@ -1,0 +1,4 @@
+# This setting will only be applied after a restart
+languages:
+  - en_us
+  - de_de

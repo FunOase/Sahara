@@ -1,4 +1,4 @@
-package net.funoase.sahara.util;
+package net.funoase.sahara.bukkit.util;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -6,7 +6,7 @@ import org.bukkit.command.CommandSender;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "deprecation"})
 public class Colors {
 
     public static final Pattern hex = Pattern.compile("#[a-fA-F0-9]{6}");

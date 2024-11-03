@@ -1,4 +1,4 @@
-package net.funoase.sahara.scoreboard;
+package net.funoase.sahara.bukkit.scoreboard;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;

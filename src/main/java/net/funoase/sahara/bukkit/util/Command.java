@@ -19,8 +19,8 @@ import java.util.List;
 public abstract class Command<T extends JavaPlugin> implements CommandExecutor, TabExecutor {
 
     public static final List<String> players = new ArrayList<>(Collections.singletonList("--players--"));
+    protected static MiniMessage minimessage = MiniMessage.miniMessage();
     protected final T plugin;
-    protected MiniMessage minimessage = MiniMessage.miniMessage();
     private final String name;
     private boolean registered = false;
 
@@ -57,11 +57,11 @@ public abstract class Command<T extends JavaPlugin> implements CommandExecutor, 
         return finalList;
     }
 
-    public Component deserializeTranslatable(CommandSender sender, String key, Object... args) {
+    public static Component deserializeTranslatable(CommandSender sender, String key, Object... args) {
         Language language = Sahara.get().getI18nManager().getLanguage(
                 sender instanceof Player player ? player.locale() : I18nManager.fallback
         );
-        return minimessage.deserialize(language.translate("sahara.prefix") + " " + language.translate(key, args));
+        return minimessage.deserialize(language.translate("sahara.prefix") + language.translate(key, args));
     }
 
     public void register() {

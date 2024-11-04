@@ -1,67 +1,61 @@
 package net.funoase.sahara.bukkit.util;
 
-import net.kyori.adventure.pointer.Pointered;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.CharacterAndFormat;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.command.CommandSender;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 
-@SuppressWarnings({"unused", "deprecation"})
+@SuppressWarnings("unused")
 public class Colors {
 
-    public static final Pattern hex = Pattern.compile("#[a-fA-F0-9]{6}");
-    private static final Pattern color = Pattern.compile("(?i)&([0-9A-FR])");
-    private static final Pattern magic = Pattern.compile("(?i)&([K])");
-    private static final Pattern bold = Pattern.compile("(?i)&([L])");
-    private static final Pattern strikethrough = Pattern.compile("(?i)&([M])");
-    private static final Pattern underline = Pattern.compile("(?i)&([N])");
-    private static final Pattern italic = Pattern.compile("(?i)&([O])");
-
-    /**
-     * The message with all it's color codes replaced
-     * @param message The message to replace the color codes in
-     * @return The message with all it's color codes replaced
-     * @deprecated Use {@link net.kyori.adventure.text.minimessage.MiniMessage#deserialize} instead
-     */
-    @Deprecated
-    public static String translateCodes(String message) {
-        Matcher match = hex.matcher(message);
-        while(match.find()) {
-            String color = message.substring(match.start(), match.end());
-            message = message.replace(color, net.md_5.bungee.api.ChatColor.of(color) + "");
-            match = hex.matcher(message);
-        }
-        return ChatColor.translateAlternateColorCodes('&', message);
+    public static Component translateCodes(String message) {
+        return LegacyComponentSerializer.legacyAmpersand().deserialize(message);
     }
 
-    public static String translatePlayerCodes(CommandSender sender, String message, String basePermission) {
+    public static Component translatePlayerCodes(CommandSender sender, String message, String basePermission) {
+        LegacyComponentSerializer.Builder builder = LegacyComponentSerializer.builder();
+        List<CharacterAndFormat> formats = new ArrayList<>();
         if(sender.hasPermission(basePermission + ".hex")) {
-            Matcher match = hex.matcher(message);
-            while(match.find()) {
-                String color = message.substring(match.start(), match.end());
-                message = message.replace(color, net.md_5.bungee.api.ChatColor.of(color) + "");
-                match = hex.matcher(message);
-            }
+            builder.hexColors();
         }
         if(sender.hasPermission(basePermission + ".colors")) {
-            message = color.matcher(message).replaceAll("§$1");
+            formats.add(CharacterAndFormat.BLACK);
+            formats.add(CharacterAndFormat.DARK_BLUE);
+            formats.add(CharacterAndFormat.DARK_GREEN);
+            formats.add(CharacterAndFormat.DARK_AQUA);
+            formats.add(CharacterAndFormat.DARK_RED);
+            formats.add(CharacterAndFormat.DARK_PURPLE);
+            formats.add(CharacterAndFormat.GOLD);
+            formats.add(CharacterAndFormat.GRAY);
+            formats.add(CharacterAndFormat.DARK_GRAY);
+            formats.add(CharacterAndFormat.BLUE);
+            formats.add(CharacterAndFormat.GREEN);
+            formats.add(CharacterAndFormat.AQUA);
+            formats.add(CharacterAndFormat.RED);
+            formats.add(CharacterAndFormat.LIGHT_PURPLE);
+            formats.add(CharacterAndFormat.YELLOW);
+            formats.add(CharacterAndFormat.WHITE);
+            formats.add(CharacterAndFormat.RESET);
         }
         if(sender.hasPermission(basePermission + ".bold")) {
-            message = bold.matcher(message).replaceAll("§$1");
+            formats.add(CharacterAndFormat.BOLD);
         }
         if(sender.hasPermission(basePermission + ".italic")) {
-            message = italic.matcher(message).replaceAll("§$1");
+            formats.add(CharacterAndFormat.ITALIC);
         }
         if(sender.hasPermission(basePermission + ".underline")) {
-            message = underline.matcher(message).replaceAll("§$1");
+            formats.add(CharacterAndFormat.UNDERLINED);
         }
         if(sender.hasPermission(basePermission + ".strikethrough")) {
-            message = strikethrough.matcher(message).replaceAll("§$1");
+            formats.add(CharacterAndFormat.STRIKETHROUGH);
         }
         if(sender.hasPermission(basePermission + ".magic")) {
-            message = magic.matcher(message).replaceAll("§$1");
+            formats.add(CharacterAndFormat.OBFUSCATED);
         }
-        return message;
+        if(!formats.isEmpty()) builder.formats(formats);
+        return builder.build().deserialize(message);
     }
 }

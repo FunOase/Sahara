@@ -16,7 +16,10 @@ public class Colors {
     }
 
     public static Component translatePlayerCodes(CommandSender sender, String message, String basePermission) {
-        LegacyComponentSerializer.Builder builder = LegacyComponentSerializer.builder();
+        LegacyComponentSerializer.Builder builder = LegacyComponentSerializer
+                .builder()
+                .character(LegacyComponentSerializer.AMPERSAND_CHAR)
+                .hexCharacter(LegacyComponentSerializer.HEX_CHAR);
         List<CharacterAndFormat> formats = new ArrayList<>();
         if(sender.hasPermission(basePermission + ".hex")) {
             builder.hexColors();

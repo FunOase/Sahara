@@ -1,5 +1,6 @@
 package net.funoase.sahara.bukkit.util;
 
+import net.kyori.adventure.pointer.Pointered;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -17,6 +18,13 @@ public class Colors {
     private static final Pattern underline = Pattern.compile("(?i)&([N])");
     private static final Pattern italic = Pattern.compile("(?i)&([O])");
 
+    /**
+     * The message with all it's color codes replaced
+     * @param message The message to replace the color codes in
+     * @return The message with all it's color codes replaced
+     * @deprecated Use {@link net.kyori.adventure.text.minimessage.MiniMessage#deserialize} instead
+     */
+    @Deprecated
     public static String translateCodes(String message) {
         Matcher match = hex.matcher(message);
         while(match.find()) {

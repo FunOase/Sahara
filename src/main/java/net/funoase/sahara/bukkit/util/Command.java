@@ -62,7 +62,7 @@ public abstract class Command<T extends JavaPlugin> implements CommandExecutor, 
         Language language = Sahara.get().getI18nManager().getLanguage(
                 sender instanceof Player player ? player.locale() : I18nManager.fallback
         );
-        return minimessage.deserialize(language.translate("sahara.prefix") + language.translate(key), args);
+        return minimessage.deserialize(language.translate("sahara.prefix") + " " + language.translate(key), args);
     }
 
     public void register() {

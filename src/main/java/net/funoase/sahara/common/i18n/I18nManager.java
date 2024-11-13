@@ -1,6 +1,8 @@
 package net.funoase.sahara.common.i18n;
 
 import net.funoase.sahara.bukkit.Sahara;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -70,5 +72,9 @@ public class I18nManager {
 
     public Language getLanguage(Locale locale) {
         return getLanguage(locale.toString().toLowerCase());
+    }
+
+    public Language getLanguage(CommandSender sender) {
+        return getLanguage(sender instanceof Player player ? player.locale() : I18nManager.fallback);
     }
 }

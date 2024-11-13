@@ -19,8 +19,15 @@ public class I18n {
         return component(sender, key, false, args);
     }
 
+    public static Component component(Language language, String key, TagResolver... args) {
+        return component(language, key, false, args);
+    }
+
     public static Component component(CommandSender sender, String key, boolean prefix, TagResolver... args) {
-        Language language = manager.getLanguage(sender);
+        return component(manager.getLanguage(sender), key, prefix, args);
+    }
+
+    public static Component component(Language language, String key, boolean prefix, TagResolver... args) {
         return minimessage.deserialize((prefix ? language.translate("sahara.prefix") + " " : "") + language.translate(key), args);
     }
 

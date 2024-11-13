@@ -1,28 +1,45 @@
 package net.funoase.sahara.bukkit.i18n;
 
 import net.funoase.sahara.bukkit.Sahara;
-import org.bukkit.entity.Player;
+import net.funoase.sahara.common.i18n.I18nManager;
+import net.funoase.sahara.common.i18n.Language;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class I18n {
 
-    @NotNull
-    public static String getRawTranslation(@NotNull Player player, @NotNull String key) {
-        return Sahara.get().getI18nManager().getLanguage(player.locale()).getRawTranslation(key);
+    private static final I18nManager manager = Sahara.get().getI18nManager();
+    private static final MiniMessage minimessage = MiniMessage.miniMessage();
+
+    public static Component component(CommandSender sender, String key, TagResolver... args) {
+        return component(sender, key, false, args);
+    }
+
+    public static Component component(CommandSender sender, String key, boolean prefix, TagResolver... args) {
+        Language language = manager.getLanguage(sender);
+        return minimessage.deserialize((prefix ? language.translate("sahara.prefix") + " " : "") + language.translate(key), args);
     }
 
     @NotNull
-    public static String translate(@NotNull Player player, @NotNull String key, Object... args) {
-        return Sahara.get().getI18nManager().getLanguage(player.locale()).translate(key, args);
+    public static String getRawTranslation(@NotNull CommandSender sender, @NotNull String key) {
+        return manager.getLanguage(sender).getRawTranslation(key);
+    }
+
+    @NotNull
+    public static String translate(@NotNull CommandSender sender, @NotNull String key, Object... args) {
+        return manager.getLanguage(sender).translate(key, args);
     }
 
     @Nullable
-    public static String getTranslation(@NotNull Player player, @NotNull String key, Object... args) {
-        return Sahara.get().getI18nManager().getLanguage(player.locale()).getTranslation(key, args);
+    public static String getTranslation(@NotNull CommandSender sender, @NotNull String key, Object... args) {
+        return manager.getLanguage(sender).getTranslation(key, args);
     }
 
-    public static boolean has(@NotNull Player player, @NotNull String key) {
-        return Sahara.get().getI18nManager().getLanguage(player.locale()).has(key);
+    public static boolean has(@NotNull CommandSender sender, @NotNull String key) {
+        return manager.getLanguage(sender).has(key);
     }
 }

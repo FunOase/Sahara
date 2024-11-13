@@ -1,6 +1,7 @@
 package net.funoase.sahara.bukkit.command;
 
 import net.funoase.sahara.bukkit.Sahara;
+import net.funoase.sahara.bukkit.i18n.I18n;
 import net.funoase.sahara.bukkit.util.Command;
 import org.bukkit.command.CommandSender;
 
@@ -15,12 +16,12 @@ public class SaharaCommand extends Command<Sahara> {
     @Override
     public void execute(CommandSender sender, String prefix, String[] args) {
         if(!sender.hasPermission("sahara.reload")) {
-            sender.sendMessage(deserializeTranslatable(sender, "sahara.errors.noPermission"));
+            sender.sendMessage(I18n.component(sender, "sahara.errors.noPermission", true));
             return;
         }
         plugin.reloadConfig();
         plugin.getI18nManager().loadLanguages();
-        sender.sendMessage(deserializeTranslatable(sender, "sahara.commands.reload.success"));
+        sender.sendMessage(I18n.component(sender, "sahara.commands.reload.success", true));
     }
 
     @Override

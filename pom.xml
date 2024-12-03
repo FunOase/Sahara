@@ -18,9 +18,13 @@
 
     <distributionManagement>
         <repository>
-            <id>funoase-plugins-sahara</id>
-            <url>https://repo.funoase.net/plugins</url>
+            <id>funoase</id>
+            <url>https://repo.funoase.net/release</url>
         </repository>
+        <snapshotRepository>
+            <id>funoase</id>
+            <url>https://repo.funoase.net/snapshot</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <build>
